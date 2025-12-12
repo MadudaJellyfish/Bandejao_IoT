@@ -1,0 +1,101 @@
+<!DOCTYPE html>  
+<html>
+    <head>
+        <meta charset="utf-8"/> 
+        <title>Menu</title> 
+
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='edita.css') }}">
+        <link href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    </head>
+
+    <body>
+        <div id = "body">
+            <h1>Edição <span id = "s1"></span></h1>
+
+            {% if (error) %}
+                Erro! Insira uma matrícula já existente.
+            {% endif %}
+
+            <form action = "{{ url_for('edita', num = num)}}" method="post" enctype="multipart/form-data">
+                <div id = "d_geral_forms" class = "jumbotron text-center">                
+                    <fieldset>
+                        <div >                        
+                            <div id = "d_name">
+                                <label for= "nome">nome: </label>
+                                <input id = "nome" type = "text" name = "fNome"  value = "{{lEdita[0]}}" placeholder="Nome do aluno">
+                            </div>    
+
+                            <!-- <div id = "d_curso">
+                                <label>curso:</label>
+                                <input id = "engenharia" type = "radio" name = "fCurso" value="Engenharia" {% if lEdita[2] == 'Engenharia' %}checked{% endif %}>
+                                <label for= "engenharia">Engenharia </label>
+
+                                <input id = "ciência da computação" type = "radio" name = "fCurso" value = "Ciência da Computação" {% if lEdita[2] == 'Ciência da Computação' %}checked{% endif %}>
+                                <label for= "ciência da computação">Ciência da Computação </label>
+                            </div> -->    
+
+                            <div id = "d_saldo">
+                                <label for= "saldo">saldo: </label>
+                                <input id = "saldo" type = "text" name = "fsaldo"  value = "{{lEdita[1]}}" placeholder="Saldo da pessoa">
+                            </div>    
+                            <div id = "d_chatID">
+                                <label for= "chatID">chatID: </label>
+                                <input id = "chatID" type = "text" name = "fchatId"  value = "{{lEdita[2]}}" placeholder="Chat Id da pessoa">
+                            </div>  
+                            <div id="d_rfid">
+                                <label for="rfid">rfid: </label>
+                                <input id="rfid" type="text" name="frfid" value="{{ lEdita[3] }}" placeholder="rfid da pessoa">
+                                <button id="btnRfid" type="button" onclick = "lerRfid()">Pegar RFID</button>
+                                <span id="statusRfid"></span>
+                            </div>  
+                            
+                            <!-- <div id = "d_photo">
+                                <label for = "foto"> Foto estudante: </label>
+                                <input id = "foto" type = "file" name = "fFoto" accept="image/*" >
+                            </div> -->
+                                <button id = "btnEnviar" class = "jumbotron text-center" type="submit">Enviar</button>                           
+                        </div>
+                    </fieldset>
+                </div>
+            </form>
+            <a href = "/"><button id = "btnVoltar">Voltar</button></a>
+        </div>   
+        <script>
+            async function lerRfid() {
+            const btn = document.getElementById("btnRfid");
+            const campo = document.getElementById("rfid");
+
+            btn.disabled = true;
+            const textoOriginal = btn.textContent;
+            btn.textContent = "Lendo...";
+
+            try {
+                const resp = await fetch("/pedeRfid", {
+                method: "POST",
+                headers: {
+                    "X-Requested-With": "XMLHttpRequest"
+                }
+                });
+                console.log("Resposta recebida:");
+                console.log(resp)
+                const data = await resp.json();
+
+                if (data.ok) 
+                {
+                    campo.value = data.rfid;  
+                } 
+                else {
+                    alert("Erro ao ler RFID: " + (data.erro || "desconhecido"));
+                }
+            } catch (e) {
+                console.error(e);
+                alert("Falha ao falar com o servidor.");
+            } finally {
+                btn.disabled = false;
+                btn.textContent = textoOriginal;
+            }
+            }
+        </script>                         
+    </body>
+
+</html>

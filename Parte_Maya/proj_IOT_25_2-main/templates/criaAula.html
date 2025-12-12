@@ -1,0 +1,42 @@
+<!DOCTYPE html>  
+<html>
+    <head>
+        <meta charset="utf-8"/> 
+        <title>Menu</title> 
+
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='criaAula.css') }}">
+        <link href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    </head>
+
+    <body>
+        <div id = "body">
+            <h1>Criação de Aula<span id = "s1"></span></h1>
+
+            {% if (error) %}
+                Erro! Insira um código de turma que não exista para essa matéria.
+            {% endif %}
+
+            <form action = "{{ url_for('criaAula')}}" method="post" enctype="multipart/form-data">
+                <div id = "d_geral_forms" class = "jumbotron text-center">                
+                    <fieldset>
+                        <div >                        
+                            <div id = "d_data">
+                                <label for= "Data">Data: </label>
+                                <input id = "Data" type = "date" name = "fData">
+                            </div>       
+                            <div id = "d_hora">
+                                <label for= "Hora">Hora: </label>
+                                <input id = "Hora" type = "time" name = "fHora" step = "1">
+                            </div>     
+                            <a href = "{{url_for('menu', turma = turmaAtualP)}}">
+                                <button id = "btnEnviar" class = "jumbotron text-center" type="submit">Enviar</button> 
+                            </a>                            
+                        </div>
+                    </fieldset>
+                </div>
+            </form>
+            <a href = "/{{turmaAtualP}}"><button id = "btnVoltar">Voltar</button></a>
+        </div>                           
+    </body>
+
+</html>
