@@ -1,0 +1,856 @@
+[
+    {
+        "id": "6be7b01268267cc6",
+        "type": "tab",
+        "label": "Fluxo 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "8ebc59cf169a3f82",
+        "type": "telegram receiver",
+        "z": "6be7b01268267cc6",
+        "name": "",
+        "bot": "b9f83c5434bc6c47",
+        "saveDataDir": "",
+        "filterCommands": false,
+        "x": 270,
+        "y": 260,
+        "wires": [
+            [
+                "ec6c8611dfe6dd6d",
+                "1b30efb259aa4f86"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "ec6c8611dfe6dd6d",
+        "type": "debug",
+        "z": "6be7b01268267cc6",
+        "name": "debug 11",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 520,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "4a867d8c38ca7231",
+        "type": "change",
+        "z": "6be7b01268267cc6",
+        "name": "",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload.chatId",
+                "pt": "msg",
+                "to": "queryParameters.chatId",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 820,
+        "y": 160,
+        "wires": [
+            [
+                "63dc43886bb18f18",
+                "feab6b5b12e9b8ad"
+            ]
+        ]
+    },
+    {
+        "id": "1b30efb259aa4f86",
+        "type": "switch",
+        "z": "6be7b01268267cc6",
+        "name": "",
+        "property": "payload.content",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "saldo",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "qtdFila",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "qtdBandejão",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 3,
+        "x": 530,
+        "y": 260,
+        "wires": [
+            [
+                "4a867d8c38ca7231"
+            ],
+            [
+                "69d352419faa4626"
+            ],
+            [
+                "0bd932484a1cc159"
+            ]
+        ]
+    },
+    {
+        "id": "63dc43886bb18f18",
+        "type": "debug",
+        "z": "6be7b01268267cc6",
+        "name": "debug 12",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1100,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "feab6b5b12e9b8ad",
+        "type": "postgresql",
+        "z": "6be7b01268267cc6",
+        "name": "",
+        "query": "SELECT * \nFROM base_bandejao \nWHERE chat_id = $chatId;",
+        "postgreSQLConfig": "80749086422b3f8f",
+        "split": false,
+        "rowsPerMsg": 1,
+        "outputs": 1,
+        "x": 1110,
+        "y": 160,
+        "wires": [
+            [
+                "088922d58a8496e7",
+                "edbc6d36b4039c16"
+            ]
+        ]
+    },
+    {
+        "id": "088922d58a8496e7",
+        "type": "debug",
+        "z": "6be7b01268267cc6",
+        "name": "debug 16",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1320,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "5337f636d6d838ec",
+        "type": "template",
+        "z": "6be7b01268267cc6",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "{ \n  \"content\": \"Seu saldo é de {{payload.saldo}}\", \n  \"chatId\": \"{{payload.chat_id}}\", \n  \"type\": \"message\" \n}",
+        "output": "json",
+        "x": 1560,
+        "y": 160,
+        "wires": [
+            [
+                "e40d4268a267ca89",
+                "37c4e6d8d0480f06"
+            ]
+        ]
+    },
+    {
+        "id": "e40d4268a267ca89",
+        "type": "debug",
+        "z": "6be7b01268267cc6",
+        "name": "debug 17",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1780,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "2d53e6b8d87caf88",
+        "type": "debug",
+        "z": "6be7b01268267cc6",
+        "name": "debug 18",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1560,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "edbc6d36b4039c16",
+        "type": "split",
+        "z": "6be7b01268267cc6",
+        "name": "",
+        "splt": "\\n",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "",
+        "property": "payload",
+        "x": 1310,
+        "y": 160,
+        "wires": [
+            [
+                "5337f636d6d838ec",
+                "2d53e6b8d87caf88"
+            ]
+        ]
+    },
+    {
+        "id": "37c4e6d8d0480f06",
+        "type": "telegram sender",
+        "z": "6be7b01268267cc6",
+        "name": "",
+        "bot": "b9f83c5434bc6c47",
+        "haserroroutput": false,
+        "outputs": 1,
+        "x": 1790,
+        "y": 160,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "188cab566dfd7162",
+        "type": "mqtt out",
+        "z": "6be7b01268267cc6",
+        "name": "",
+        "topic": "qtdFila",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "fa7923ade7c363e8",
+        "x": 970,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "06fee208a40193e1",
+        "type": "debug",
+        "z": "6be7b01268267cc6",
+        "name": "debug 19",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 980,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "4d332b21f2403532",
+        "type": "mqtt out",
+        "z": "6be7b01268267cc6",
+        "name": "",
+        "topic": "qtdBandejao",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "fa7923ade7c363e8",
+        "x": 990,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "d289fb2da0b69413",
+        "type": "debug",
+        "z": "6be7b01268267cc6",
+        "name": "debug 20",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 980,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "14f754021e0bb382",
+        "type": "mqtt in",
+        "z": "6be7b01268267cc6",
+        "name": "",
+        "topic": "qtdFila",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "fa7923ade7c363e8",
+        "nl": true,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 230,
+        "y": 740,
+        "wires": [
+            [
+                "4498140289e68359",
+                "64e3d1e8ad25fda3"
+            ]
+        ]
+    },
+    {
+        "id": "4498140289e68359",
+        "type": "template",
+        "z": "6be7b01268267cc6",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "{ \n  \"content\": \"Há aproximadamente {{payload.qtd}} pessoas na fila do Bandejão.\", \n  \"chatId\": \"{{payload.chatId}}\", \n  \"type\": \"message\" \n}",
+        "output": "json",
+        "x": 420,
+        "y": 740,
+        "wires": [
+            [
+                "346af6d57f213511",
+                "9ef352da3f2b9985"
+            ]
+        ]
+    },
+    {
+        "id": "346af6d57f213511",
+        "type": "telegram sender",
+        "z": "6be7b01268267cc6",
+        "name": "",
+        "bot": "b9f83c5434bc6c47",
+        "haserroroutput": false,
+        "outputs": 1,
+        "x": 650,
+        "y": 740,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "64e3d1e8ad25fda3",
+        "type": "debug",
+        "z": "6be7b01268267cc6",
+        "name": "debug 21",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 420,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "9ef352da3f2b9985",
+        "type": "debug",
+        "z": "6be7b01268267cc6",
+        "name": "debug 22",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 620,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "69d352419faa4626",
+        "type": "change",
+        "z": "6be7b01268267cc6",
+        "name": "",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 790,
+        "y": 340,
+        "wires": [
+            [
+                "188cab566dfd7162",
+                "06fee208a40193e1"
+            ]
+        ]
+    },
+    {
+        "id": "0bd932484a1cc159",
+        "type": "change",
+        "z": "6be7b01268267cc6",
+        "name": "",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 790,
+        "y": 480,
+        "wires": [
+            [
+                "4d332b21f2403532",
+                "d289fb2da0b69413"
+            ]
+        ]
+    },
+    {
+        "id": "1b95f3649fa8bc5f",
+        "type": "mqtt in",
+        "z": "6be7b01268267cc6",
+        "name": "",
+        "topic": "qtdBandejao",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "fa7923ade7c363e8",
+        "nl": true,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 250,
+        "y": 960,
+        "wires": [
+            [
+                "a76a6b60a40e2bb8",
+                "73c31bb551105aa3"
+            ]
+        ]
+    },
+    {
+        "id": "a76a6b60a40e2bb8",
+        "type": "template",
+        "z": "6be7b01268267cc6",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "{ \n  \"content\": \"Há aproximadamente {{payload.qtd}} pessoas no Bandejão\", \n  \"chatId\": \"{{payload.chatId}}\", \n  \"type\": \"message\" \n}",
+        "output": "json",
+        "x": 420,
+        "y": 960,
+        "wires": [
+            [
+                "3c394b037b5b7308",
+                "37f9a793724d2d25"
+            ]
+        ]
+    },
+    {
+        "id": "3c394b037b5b7308",
+        "type": "telegram sender",
+        "z": "6be7b01268267cc6",
+        "name": "",
+        "bot": "b9f83c5434bc6c47",
+        "haserroroutput": false,
+        "outputs": 1,
+        "x": 650,
+        "y": 960,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "73c31bb551105aa3",
+        "type": "debug",
+        "z": "6be7b01268267cc6",
+        "name": "debug 23",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 420,
+        "y": 860,
+        "wires": []
+    },
+    {
+        "id": "37f9a793724d2d25",
+        "type": "debug",
+        "z": "6be7b01268267cc6",
+        "name": "debug 24",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 620,
+        "y": 860,
+        "wires": []
+    },
+    {
+        "id": "6ac2bb0a39bec749",
+        "type": "inject",
+        "z": "6be7b01268267cc6",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "00 12 * * 1,2,3,4,5",
+        "once": true,
+        "onceDelay": "",
+        "topic": "",
+        "payload": "Dados",
+        "payloadType": "str",
+        "x": 240,
+        "y": 1320,
+        "wires": [
+            [
+                "083c05c290404231",
+                "bc3885c391e06712"
+            ]
+        ]
+    },
+    {
+        "id": "b05c40b5317bcb0f",
+        "type": "inject",
+        "z": "6be7b01268267cc6",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "00 13 * * 1,2,3,4,5",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "Dados",
+        "payloadType": "str",
+        "x": 240,
+        "y": 1440,
+        "wires": [
+            [
+                "083c05c290404231",
+                "07f0a71e55b31f0b"
+            ]
+        ]
+    },
+    {
+        "id": "083c05c290404231",
+        "type": "mqtt out",
+        "z": "6be7b01268267cc6",
+        "name": "",
+        "topic": "qtdBanco",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "fa7923ade7c363e8",
+        "x": 600,
+        "y": 1380,
+        "wires": []
+    },
+    {
+        "id": "bc3885c391e06712",
+        "type": "debug",
+        "z": "6be7b01268267cc6",
+        "name": "debug 25",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 420,
+        "y": 1200,
+        "wires": []
+    },
+    {
+        "id": "07f0a71e55b31f0b",
+        "type": "debug",
+        "z": "6be7b01268267cc6",
+        "name": "debug 26",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 420,
+        "y": 1560,
+        "wires": []
+    },
+    {
+        "id": "d41fea1c73cde996",
+        "type": "change",
+        "z": "6be7b01268267cc6",
+        "name": "",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload",
+                "pt": "msg",
+                "to": "queryParameters",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 490,
+        "y": 1880,
+        "wires": [
+            [
+                "e88deae9345b801c",
+                "2d289b36559b0c66"
+            ]
+        ]
+    },
+    {
+        "id": "e88deae9345b801c",
+        "type": "postgresql",
+        "z": "6be7b01268267cc6",
+        "name": "",
+        "query": "INSERT INTO bandejao_qtd (qtd_pessoas, dia) \nVALUES ($qtd, $dia_semana)",
+        "postgreSQLConfig": "80749086422b3f8f",
+        "split": false,
+        "rowsPerMsg": 1,
+        "outputs": 1,
+        "x": 730,
+        "y": 1880,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7659dabd866567e5",
+        "type": "debug",
+        "z": "6be7b01268267cc6",
+        "name": "debug 27",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 460,
+        "y": 1760,
+        "wires": []
+    },
+    {
+        "id": "2d289b36559b0c66",
+        "type": "debug",
+        "z": "6be7b01268267cc6",
+        "name": "debug 28",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 720,
+        "y": 1760,
+        "wires": []
+    },
+    {
+        "id": "373f88c0b262914e",
+        "type": "mqtt in",
+        "z": "6be7b01268267cc6",
+        "name": "",
+        "topic": "qtdBanco",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "fa7923ade7c363e8",
+        "nl": true,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 240,
+        "y": 1880,
+        "wires": [
+            [
+                "d41fea1c73cde996",
+                "7659dabd866567e5"
+            ]
+        ]
+    },
+    {
+        "id": "b9f83c5434bc6c47",
+        "type": "telegram bot",
+        "botname": "botBandejao",
+        "usernames": "",
+        "chatids": "",
+        "baseapiurl": "",
+        "testenvironment": false,
+        "updatemode": "polling",
+        "pollinterval": 300,
+        "usesocks": false,
+        "sockshost": "",
+        "socksprotocol": "socks5",
+        "socksport": 6667,
+        "socksusername": "anonymous",
+        "sockspassword": "",
+        "bothost": "",
+        "botpath": "",
+        "localbothost": "0.0.0.0",
+        "localbotport": 8443,
+        "publicbotport": 8443,
+        "privatekey": "",
+        "certificate": "",
+        "useselfsignedcertificate": false,
+        "sslterminated": false,
+        "verboselogging": false
+    },
+    {
+        "id": "80749086422b3f8f",
+        "type": "postgreSQLConfig",
+        "name": "PostgreSQLProjeto",
+        "host": "postgresql.janks.dev.br",
+        "hostFieldType": "str",
+        "port": "5432",
+        "portFieldType": "num",
+        "database": "projeto_b",
+        "databaseFieldType": "str",
+        "ssl": "true",
+        "sslFieldType": "bool",
+        "applicationName": "",
+        "applicationNameType": "str",
+        "max": "10",
+        "maxFieldType": "num",
+        "idle": "1000",
+        "idleFieldType": "num",
+        "connectionTimeout": "10000",
+        "connectionTimeoutFieldType": "num",
+        "user": "iot",
+        "userFieldType": "str",
+        "password": "pepcon-garton",
+        "passwordFieldType": "str"
+    },
+    {
+        "id": "fa7923ade7c363e8",
+        "type": "mqtt-broker",
+        "name": "MQTT",
+        "broker": "mqtt.janks.dev.br",
+        "port": "8883",
+        "tls": "",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": true,
+        "protocolVersion": "5",
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "3f98a33bb255d290",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "node-red-contrib-telegrambot": "16.4.0",
+            "node-red-contrib-postgresql": "0.15.4"
+        }
+    }
+]
