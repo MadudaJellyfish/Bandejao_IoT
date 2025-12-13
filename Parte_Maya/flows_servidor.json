@@ -625,7 +625,7 @@
         "correl": "",
         "expiry": "",
         "broker": "fa7923ade7c363e8",
-        "x": 600,
+        "x": 740,
         "y": 1380,
         "wires": []
     },
@@ -658,7 +658,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 420,
-        "y": 1560,
+        "y": 1380,
         "wires": []
     },
     {
@@ -684,25 +684,9 @@
         "y": 1880,
         "wires": [
             [
-                "e88deae9345b801c",
-                "2d289b36559b0c66"
+                "2d289b36559b0c66",
+                "e88deae9345b801c"
             ]
-        ]
-    },
-    {
-        "id": "e88deae9345b801c",
-        "type": "postgresql",
-        "z": "6be7b01268267cc6",
-        "name": "",
-        "query": "INSERT INTO bandejao_qtd (qtd_pessoas, dia) \nVALUES ($qtd, $dia_semana)",
-        "postgreSQLConfig": "80749086422b3f8f",
-        "split": false,
-        "rowsPerMsg": 1,
-        "outputs": 1,
-        "x": 730,
-        "y": 1880,
-        "wires": [
-            []
         ]
     },
     {
@@ -758,6 +742,180 @@
                 "d41fea1c73cde996",
                 "7659dabd866567e5"
             ]
+        ]
+    },
+    {
+        "id": "ecfb5bae8d62aec7",
+        "type": "inject",
+        "z": "6be7b01268267cc6",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "3600",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "",
+        "topic": "",
+        "payload": "Dados",
+        "payloadType": "str",
+        "x": 240,
+        "y": 1540,
+        "wires": [
+            [
+                "486ad57983bf3922",
+                "083c05c290404231"
+            ]
+        ]
+    },
+    {
+        "id": "486ad57983bf3922",
+        "type": "debug",
+        "z": "6be7b01268267cc6",
+        "name": "debug 29",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 440,
+        "y": 1640,
+        "wires": []
+    },
+    {
+        "id": "e88deae9345b801c",
+        "type": "postgresql",
+        "z": "6be7b01268267cc6",
+        "name": "",
+        "query": "INSERT INTO bandejao_qtd (qtd_pessoas, dia) \nVALUES ($qtd, $dia_semana)",
+        "postgreSQLConfig": "80749086422b3f8f",
+        "split": false,
+        "rowsPerMsg": 1,
+        "outputs": 1,
+        "x": 730,
+        "y": 1880,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ca32ca85bb99b053",
+        "type": "mqtt in",
+        "z": "6be7b01268267cc6",
+        "name": "",
+        "topic": "mudaSaldo",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "fa7923ade7c363e8",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 250,
+        "y": 2140,
+        "wires": [
+            [
+                "91539c0dd68a2ef2",
+                "20d7f9fd8c805b47"
+            ]
+        ]
+    },
+    {
+        "id": "91539c0dd68a2ef2",
+        "type": "change",
+        "z": "6be7b01268267cc6",
+        "name": "",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload",
+                "pt": "msg",
+                "to": "queryParameters",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 490,
+        "y": 2140,
+        "wires": [
+            [
+                "8f43cb8c57d2200d",
+                "b4bdf8ee4dd8a6b5",
+                "4187d67d4e518417"
+            ]
+        ]
+    },
+    {
+        "id": "20d7f9fd8c805b47",
+        "type": "debug",
+        "z": "6be7b01268267cc6",
+        "name": "debug 30",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 460,
+        "y": 2020,
+        "wires": []
+    },
+    {
+        "id": "8f43cb8c57d2200d",
+        "type": "debug",
+        "z": "6be7b01268267cc6",
+        "name": "debug 31",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 720,
+        "y": 2020,
+        "wires": []
+    },
+    {
+        "id": "b4bdf8ee4dd8a6b5",
+        "type": "postgresql",
+        "z": "6be7b01268267cc6",
+        "name": "",
+        "query": "INSERT INTO bandejao_historico (rfid, saldo_anterior, diferenca) \nVALUES ($rfid, $saldo, $valor)",
+        "postgreSQLConfig": "80749086422b3f8f",
+        "split": false,
+        "rowsPerMsg": 1,
+        "outputs": 1,
+        "x": 730,
+        "y": 2140,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "4187d67d4e518417",
+        "type": "postgresql",
+        "z": "6be7b01268267cc6",
+        "name": "",
+        "query": "UPDATE base_bandejao\nSET saldo = $saldo\nWHERE rfid = $rfid;",
+        "postgreSQLConfig": "80749086422b3f8f",
+        "split": false,
+        "rowsPerMsg": 1,
+        "outputs": 1,
+        "x": 730,
+        "y": 2260,
+        "wires": [
+            []
         ]
     },
     {
@@ -845,7 +1003,7 @@
         "sessionExpiry": ""
     },
     {
-        "id": "3f98a33bb255d290",
+        "id": "7f3e4bd46923c09d",
         "type": "global-config",
         "env": [],
         "modules": {
