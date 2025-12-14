@@ -42,5 +42,5 @@ Foto das visualizações do grafana:
 
 Vídeo do projeto:
 
-<iframe width="560" height="315" src="https://youtu.be/RA50khtcj1w?si=WB2nztp2E7JBOsEj" frameborder="0" allowfullscreen></iframe>
+[![Assista ao vídeo](https://img.youtube.com/vi/RA50khtcj1w/maxresdefault.jpg)](https://youtu.be/RA50khtcj1w?si=WB2nztp2E7JBOsEj)
 
