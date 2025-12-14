@@ -22,3 +22,25 @@ A aplicação consiste em um programa sendo executado dentro da placa ESP32-S3-C
 Mayara: 
 
 Essa parte dos códigos é responsável pelo servidor. Ele faz o site funcionar, se conectando ao banco de dados, tem o node-red que se comunica com o código da Maria Eduarda e da Luciana e colocam no banco de dados as informações passadas.
+
+
+Fotos dos esquemáticos:
+
+![alt text](image-4.png)
+
+![alt text](image-1.png)
+
+![alt text](image-2.png)
+
+![alt text](image-3.png)
+
+
+Foto das visualizações do grafana:
+
+![alt text](grafana.png)
+
+
+Vídeo do projeto:
+
+<iframe width="560" height="315" src="https://youtu.be/RA50khtcj1w?si=WB2nztp2E7JBOsEj" frameborder="0" allowfullscreen></iframe>
+
